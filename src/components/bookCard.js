@@ -1,15 +1,16 @@
-import React from 'react';
-import {Card, Col, Row} from 'react-bootstrap';
-import book1 from '../assets/book/book1.jpg';
+import React from 'react'
+import { Card, Col, Row } from 'react-bootstrap'
+import book1 from '../assets/book/book1.jpg'
 
 export default class BookCard extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return <Card style={{ width: '12rem' }}>
-            <a id="book" href={"/book"} style={{textDecoration: 'none'}}>
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  render () {
+    return <Card style={{ width: '12rem' }}>
+            <a id="book" href={'/book'} style={{ textDecoration: 'none' }}>
                 <Card.Img height={200} variant="top" src={book1} />
                 <Card.Body>
                     <Card.Title>
@@ -35,6 +36,6 @@ export default class BookCard extends React.PureComponent {
                     </Card.Subtitle>
                 </Card.Body>
             </a>
-        </Card>;
-    }
+        </Card>
+  }
 }

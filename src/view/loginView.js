@@ -1,16 +1,17 @@
-import React from 'react';
-import {Col, Container, Form, Button, Row} from 'react-bootstrap';
-import '../css/login.css';
-const autobind = require('class-autobind').default;
+import React from 'react'
+import { Col, Container, Form, Button, Row } from 'react-bootstrap'
+import '../css/login.css'
+const autobind = require('class-autobind').default
 
 export default class LoginView extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        autobind(this);
-    }
-    render() {
-        return <Container className="login-page">
+  constructor (props) {
+    super(props)
+    this.state = {}
+    autobind(this)
+  }
+
+  render () {
+    return <Container className="login-page">
             <Col sm={{ span: 4, offset: 4 }}>
                 <Form>
                     <Form.Group as={Row} className="mb-3" controlId="formUsername">
@@ -41,6 +42,6 @@ export default class LoginView extends React.PureComponent {
                     </Form.Group>
                 </Form>
             </Col>
-        </Container>;
-    }
+        </Container>
+  }
 }

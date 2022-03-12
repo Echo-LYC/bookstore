@@ -1,16 +1,17 @@
-import React from 'react';
-import {Carousel} from 'react-bootstrap';
-import carousel1 from "../assets/carousel/carousel_1.jpg";
-import carousel2 from "../assets/carousel/carousel_2.jpg";
-import carousel3 from "../assets/carousel/carousel_3.jpg";
+import React from 'react'
+import { Carousel } from 'react-bootstrap'
+import carousel1 from '../assets/carousel/carousel_1.jpg'
+import carousel2 from '../assets/carousel/carousel_2.jpg'
+import carousel3 from '../assets/carousel/carousel_3.jpg'
 
 export default class BookCarousel extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return <Carousel>
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  render () {
+    return <Carousel>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
@@ -44,6 +45,6 @@ export default class BookCarousel extends React.PureComponent {
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
-            </Carousel>;
-    }
+            </Carousel>
+  }
 }

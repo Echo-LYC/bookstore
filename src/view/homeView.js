@@ -1,18 +1,19 @@
-import React from 'react';
-import {Col, Container, Row} from 'react-bootstrap';
-import SideBar from '../components/sideBar';
-import HeaderInfo from "../components/headerInfo";
-import SearchBar from "../components/searchBar";
-import BookCarousel from "../components/bookCarousel";
-import BookCard from "../components/bookCard";
+import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import SideBar from '../components/sideBar'
+import HeaderInfo from '../components/headerInfo'
+import SearchBar from '../components/searchBar'
+import BookCarousel from '../components/bookCarousel'
+import BookCard from '../components/bookCard'
 
 export default class HomeView extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return <Container>
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  render () {
+    return <Container>
             <HeaderInfo/>
             <hr className="bordered-dashed"/>
             <Row>
@@ -56,6 +57,6 @@ export default class HomeView extends React.PureComponent {
                     </Row>
                 </Col>
             </Row>
-        </Container>;
-    }
+        </Container>
+  }
 }

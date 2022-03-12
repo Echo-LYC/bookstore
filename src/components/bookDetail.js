@@ -1,14 +1,15 @@
-import React from 'react';
-import {Button, Card, Col, Container, Image, Row} from 'react-bootstrap';
-import book1 from '../assets/book/book1.jpg';
+import React from 'react'
+import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
+import book1 from '../assets/book/book1.jpg'
 
 export default class BookDetail extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return <Container>
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  render () {
+    return <Container>
                 <Row>
                     <Col sm={{ span: 4, offset: 1 }}>
                         <Image height={400} src={book1}/>
@@ -41,6 +42,6 @@ export default class BookDetail extends React.PureComponent {
                         </Col>
                     </Row>
                 </Col>
-        </Container>;
-    }
+        </Container>
+  }
 }

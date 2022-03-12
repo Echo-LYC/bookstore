@@ -1,24 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
-import LoginView from '../view/loginView';
-import HomeView from "../view/homeView";
-import BookView from "../view/bookView";
-import OrderView from "../view/orderView";
+import LoginView from '../view/loginView'
+import HomeView from '../view/homeView'
+import BookView from '../view/bookView'
+import OrderView from '../view/orderView'
 
-export const history = require('history').createBrowserHistory();
+export const history = require('history').createBrowserHistory()
 
-export default class BasicRouter extends React.Component{
-    constructor(props) {
-        super(props);
+export default class BasicRouter extends React.Component {
+  constructor (props) {
+    super(props)
 
-        history.listen((location, action) => {
-            console.log(location,action);
-        });
-    }
+    history.listen((location, action) => {
+      console.log(location, action)
+    })
+  }
 
-    render() {
-        return <Router history={history}>
+  render () {
+    return <Router history={history}>
             <Switch>
                 <Route exact path="/home" component={HomeView} />
                 <Route exact path="/login" component={LoginView}/>
@@ -27,6 +27,6 @@ export default class BasicRouter extends React.Component{
                 <Route exact path="/" component={HomeView}/>
                 <Redirect from="/*" to="/home"/>
             </Switch>
-        </Router>;
-    }
+        </Router>
+  }
 }

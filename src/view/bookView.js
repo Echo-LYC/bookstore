@@ -1,16 +1,17 @@
-import React from 'react';
-import {Col, Container, Row} from 'react-bootstrap';
-import SideBar from '../components/sideBar';
-import HeaderInfo from "../components/headerInfo";
-import BookDetail from "../components/bookDetail";
+import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import SideBar from '../components/sideBar'
+import HeaderInfo from '../components/headerInfo'
+import BookDetail from '../components/bookDetail'
 
 export default class BookView extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return <Container>
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  render () {
+    return <Container>
             <HeaderInfo/>
             <hr className="bordered-dashed"/>
             <Row>
@@ -21,6 +22,6 @@ export default class BookView extends React.PureComponent {
                     <BookDetail/>
                 </Col>
             </Row>
-        </Container>;
-    }
+        </Container>
+  }
 }
