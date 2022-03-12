@@ -9,14 +9,14 @@ export default class SearchBar extends React.PureComponent {
 
   render () {
     return <InputGroup className="mb-3">
-                <FormControl
-                    placeholder="Enter Book Name"
-                    aria-label="Enter Book Name"
-                    aria-describedby="search"
-                />
-                <Button variant="outline-secondary">
+      <FormControl
+        placeholder="Enter Book Name"
+        aria-label="Enter Book Name"
+        aria-describedby="search"
+      />
+      <Button variant="outline-secondary">
                     Search
-                </Button>
-            </InputGroup>
+      </Button>
+    </InputGroup>
   }
 }

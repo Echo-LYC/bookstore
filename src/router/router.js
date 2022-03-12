@@ -19,14 +19,14 @@ export default class BasicRouter extends React.Component {
 
   render () {
     return <Router history={history}>
-            <Switch>
-                <Route exact path="/home" component={HomeView} />
-                <Route exact path="/login" component={LoginView}/>
-                <Route exact path="/book" component={BookView}/>
-                <Route exact path="/orders" component={OrderView}/>
-                <Route exact path="/" component={HomeView}/>
-                <Redirect from="/*" to="/home"/>
-            </Switch>
-        </Router>
+      <Switch>
+        <Route exact path="/home" component={HomeView} />
+        <Route exact path="/login" component={LoginView}/>
+        <Route exact path="/book" component={BookView}/>
+        <Route exact path="/orders" component={OrderView}/>
+        <Route exact path="/" component={HomeView}/>
+        <Redirect from="/*" to="/home"/>
+      </Switch>
+    </Router>
   }
 }

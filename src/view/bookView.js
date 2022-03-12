@@ -12,16 +12,16 @@ export default class BookView extends React.PureComponent {
 
   render () {
     return <Container>
-            <HeaderInfo/>
-            <hr className="bordered-dashed"/>
-            <Row>
-                <Col sm={3}>
-                    <SideBar defaultActiveKey="/home"/>
-                </Col>
-                <Col sm={9}>
-                    <BookDetail/>
-                </Col>
-            </Row>
-        </Container>
+      <HeaderInfo/>
+      <hr className="bordered-dashed"/>
+      <Row>
+        <Col sm={3}>
+          <SideBar defaultActiveKey="/home"/>
+        </Col>
+        <Col sm={9}>
+          <BookDetail/>
+        </Col>
+      </Row>
+    </Container>
   }
 }
