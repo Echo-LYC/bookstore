@@ -3,7 +3,8 @@ import './App.css'
 
 function App () {
   const user = {
-    auth: 'ROLE_CUSTOMER', // 'ROLE_ADMINISTRATOR'
+    // auth: 'ROLE_CUSTOMER',
+    auth: 'ROLE_ADMINISTRATOR',
     userId: '12345',
     userInfo: {
       username: 'Echo',
