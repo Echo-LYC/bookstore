@@ -12,7 +12,7 @@ export default class BookCard extends React.PureComponent {
     const book = this.props.book;
     return <Card>
       <a id="book" href={'/book?id=' + book.bookId} style={{ textDecoration: 'none' }}>
-        <Card.Img height={200} variant="top" src={book.img} />
+        <Card.Img className="w-100" height={200} variant="top" src={book.img} />
         <Card.Body>
           <Card.Title>
             <Row className="justify-content-between">

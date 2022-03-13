@@ -15,6 +15,7 @@ export default class BookCarousel extends React.PureComponent {
       <Carousel.Item>
         <img
           className="d-block w-100"
+          height={500}
           src={carousel1}
           alt="First slide"
         />
@@ -26,6 +27,7 @@ export default class BookCarousel extends React.PureComponent {
       <Carousel.Item>
         <img
           className="d-block w-100"
+          height={500}
           src={carousel2}
           alt="Second slide"
         />
@@ -37,6 +39,7 @@ export default class BookCarousel extends React.PureComponent {
       <Carousel.Item>
         <img
           className="d-block w-100"
+          height={500}
           src={carousel3}
           alt="Third slide"
         />

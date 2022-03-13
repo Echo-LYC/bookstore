@@ -12,7 +12,7 @@ export default class BookDetail extends React.PureComponent {
     return <Container>
       <Row>
         <Col sm={{ span: 4, offset: 1 }}>
-          <Image height={400} src={book1}/>
+          <Image style={{maxHeight: 400}} src={book1}/>
         </Col>
         <Col sm={4}>
           <Card style={{ width: '20rem' }}>
