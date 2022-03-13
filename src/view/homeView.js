@@ -1,18 +1,35 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
 import SearchBar from '../components/searchBar'
 import BookCarousel from '../components/bookCarousel'
 import BookCard from '../components/bookCard'
+import book1 from '../assets/book/book1.jpg'
 
 export default class HomeView extends React.PureComponent {
   constructor (props) {
     super(props)
-    this.state = {}
+    const user = JSON.parse(localStorage.getItem('user'))
+    const book = {
+      bookId: '12345',
+      img: book1,
+      title: '红楼梦',
+      author: '曹雪芹',
+      ISBN: '9787020002207',
+      price: 59.7,
+      stock: 1037,
+    };
+    const books = new Array(10);
+    books.fill(book);
+    this.state = {
+      auth: user.auth,
+      books: books,
+    }
   }
 
   render () {
+    const isAdmin = this.state.auth === 'ROLE_ADMINISTRATOR';
     return <Container>
       <HeaderInfo/>
       <hr className="bordered-dashed"/>
@@ -26,34 +43,15 @@ export default class HomeView extends React.PureComponent {
             <BookCarousel/>
           </Col>
           <br/>
-          <Row className="justify-content-around">
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-          </Row>
-          <br/>
-          <Row className="justify-content-around">
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
-            <Col md="auto">
-              <BookCard/>
-            </Col>
+          <Row xs={1} md={4} className="g-4">
+            {isAdmin && <Col>
+              <Button bsSize="lg" bsStyle="success" className="w-100 fs-4" href='/editor'>
+                <i className="fa fa-plus fa-lg"/> 添加图书
+              </Button>
+            </Col>}
+            {this.state.books.map((x, i) => <Col key={i}>
+              <BookCard book={x}/>
+            </Col>)}
           </Row>
         </Col>
       </Row>

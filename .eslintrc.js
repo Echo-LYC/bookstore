@@ -102,7 +102,7 @@ module.exports = {
     'id-match': 0,
     'jsx-quotes': 0,
     'keyword-spacing': 2,
-    'max-len': [2, 200, { 'ignoreUrls': true }],
+    // 'max-len': [2, 200, { 'ignoreUrls': true }],
     'max-lines': 0,
     'max-params': [1, 5],
     'max-statements': [1, 200],
