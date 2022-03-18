@@ -13,6 +13,7 @@ function App () {
     }
   }
   localStorage.setItem('user', JSON.stringify(user))
+  // eslint-disable-next-line react/react-in-jsx-scope
   return <BasicRouter/>
 }
 

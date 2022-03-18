@@ -1,34 +1,52 @@
 import React from 'react'
 import { Col, Container, Form, Button, Row } from 'react-bootstrap'
-import '../css/login.css'
 const autobind = require('class-autobind').default
 
 export default class LoginView extends React.PureComponent {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      username: '',
+      password: '',
+      validated: false,
+    }
     autobind(this)
   }
 
+  handleLogin (e) {
+    this.setState({validated: true});
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    // TODO: post request and set callback
+  }
+
   render () {
-    return <Container className="login-page">
+    return <Container style={{paddingTop: 200}}>
       <Col sm={{ span: 4, offset: 4 }}>
-        <Form>
-          <Form.Group as={Row} className="mb-3" controlId="formUsername">
+        <Form noValidate validated={this.state.validated} onSubmit={this.handleLogin}>
+          <Form.Group as={Row} className="mb-3">
             <Form.Label className="fs-4" column sm={3}>
                             Username
             </Form.Label>
             <Col sm={9}>
-              <Form.Control size="lg" type="text" placeholder="Enter Your Username" />
+              <Form.Control required size="lg" type="text" placeholder="Enter Your Username" value={this.state.username}
+                onChange={(e) => this.setState({username: e.target.value})}/>
+              <Form.Control.Feedback type="invalid">Please input your username!</Form.Control.Feedback>
             </Col>
           </Form.Group>
           <br />
-          <Form.Group as={Row} className="mb-3" controlId="formPassword">
+          <Form.Group as={Row} className="mb-3">
             <Form.Label className="fs-4" column sm={3}>
                             Password
             </Form.Label>
             <Col sm={9}>
-              <Form.Control size="lg" type="password" placeholder="Enter Your Password" />
+              <Form.Control required size="lg" type="password" placeholder="Enter Your Password" value={this.state.password}
+                onChange={(e) => this.setState({password: e.target.value})}/>
+              <Form.Control.Feedback type="invalid">Please input your password!</Form.Control.Feedback>
             </Col>
           </Form.Group>
           <br />
@@ -37,7 +55,7 @@ export default class LoginView extends React.PureComponent {
               <Button size="lg" variant="primary" type="submit">Sign in</Button>
             </Col>
             <Col md="auto">
-              <Button size="lg" variant="outline-primary" type="submit">Sign up</Button>
+              <Button size="lg" variant="outline-primary" href='/register'>Sign up</Button>
             </Col>
           </Form.Group>
         </Form>
