@@ -11,7 +11,7 @@ export default class BookCard extends React.PureComponent {
   render () {
     const book = this.props.book;
     return <Card>
-      <a id="book" href={'/book?id=' + book.bookId} style={{ textDecoration: 'none' }}>
+      <a href={'/book?id=' + book.bookId} style={{ textDecoration: 'none' }}>
         <Card.Img className="w-100" height={200} variant="top" src={book.img} />
         <Card.Body>
           <Card.Title>

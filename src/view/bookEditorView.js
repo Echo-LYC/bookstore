@@ -36,7 +36,9 @@ export default class BookEditorView extends React.PureComponent {
   handleSubmit (e) {
     this.setState({validated: true});
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
+    const isStockInvalid = this.state.stock === '' || this.state.stock < 0;
+    const isPriceInvalid = this.state.price === '' || this.state.price < 0;
+    if (form.checkValidity() === false || isStockInvalid || isPriceInvalid) {
       e.preventDefault();
       e.stopPropagation();
       return;

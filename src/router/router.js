@@ -6,6 +6,7 @@ import HomeView from '../view/homeView'
 import BookView from '../view/bookView'
 import OrderView from '../view/orderView'
 import BookEditorView from '../view/bookEditorView';
+import RegisterView from '../view/registerView';
 
 export const history = require('history').createBrowserHistory()
 
@@ -23,6 +24,7 @@ export default class BasicRouter extends React.Component {
       <Switch>
         <Route exact path="/home" component={HomeView} />
         <Route exact path="/login" component={LoginView}/>
+        <Route exact path="/register" component={RegisterView}/>
         <Route exact path="/book" component={BookView}/>
         <Route exact path="/editor" component={BookEditorView}/>
         <Route exact path="/orders" component={OrderView}/>
