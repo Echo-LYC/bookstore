@@ -1,21 +1,74 @@
 import React from 'react'
-import { Col, Table, Container, Row } from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
+import ReactTable from '../components/reactTable';
+const autobind = require('class-autobind').default
 
 export default class OrderView extends React.PureComponent {
   constructor (props) {
     super(props)
-    const orders = new Array(10)
-    orders.fill({
-      name: '红楼梦',
+    const order1 = {
+      title: '红楼梦',
+      username: 'Echo',
       time: '2022-03-06 12:00:00',
       number: 1,
       price: 59.7
-    })
+    };
+    const order2 = {
+      title: '傲慢与偏见',
+      username: 'Lucy',
+      time: '2022-03-18 12:00:00',
+      number: 2,
+      price: 18.8
+    };
+    const order3 = {
+      title: '飘',
+      username: 'Echo',
+      time: '2022-03-23 12:00:00',
+      number: 1,
+      price: 27.9
+    };
+    const orders = new Array(30);
+    orders.fill(order1, 0, 10);
+    orders.fill(order2, 10, 20);
+    orders.fill(order3, 20);
     this.state = {
-      orders: orders
+      orders: orders,
+      columns: [
+        {
+          Header: '书名',
+          accessor: 'title',
+          id: 'title',
+        },
+        {
+          Header: '用户名',
+          accessor: 'username',
+          id: 'username',
+        },
+        {
+          Header: '下单时间',
+          accessor: 'time',
+          id: 'time',
+        },
+        {
+          Header: '数量',
+          accessor: 'number',
+          id: 'number',
+        },
+        {
+          Header: '价格',
+          accessor: 'price',
+          id: 'price',
+        },
+      ],
     }
+    autobind(this)
+  }
+
+  componentDidMount () {
+    // TODO: request get orders by id
   }
 
   render () {
@@ -27,51 +80,14 @@ export default class OrderView extends React.PureComponent {
           <SideBar defaultActiveKey="/orders"/>
         </Col>
         <Col sm={9}>
-          {/* <ReactTable className="-striped -highlight" */}
-          {/*            defaultPageSize={10} showPageSizeOptions={false} */}
-          {/*            filterable */}
-          {/*            defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value} */}
-          {/*            columns={[ */}
-          {/*                {Header: "书名", id: "name", accessor: "name", sortable: false, Cell: props => <span>{props.value}</span>, minWidth: 400}, */}
-          {/*                {Header: "下单时间", id: "time", accessor: "time", sortable: true, Cell: props => <span>{props.value}</span>}, */}
-          {/*                {Header: "数量", id: "number", accessor: "number", sortable: true, Cell: props => <span>{props.value}</span>}, */}
-          {/*                {Header: "价格", id: "price", accessor: "price", sortable: true, Cell: props => <span>{props.value}</span>}, */}
-          {/*            ]} */}
-          {/*            data={this.state.orders} */}
-          {/*            defaultSorted={[{id: "time", desc: true}]} */}
-          {/*            previousText='Previous Page' nextText='Next Page' pageText="" ofText="/"/> */}
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>书名</th>
-                <th>下单时间</th>
-                <th>数量</th>
-                <th>价格</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>红楼梦</td>
-                <td>2022-03-06 12:00:00</td>
-                <td>1</td>
-                <td>59.7</td>
-              </tr>
-              <tr>
-                <td>傲慢与偏见</td>
-                <td>2022-03-06 12:00:00</td>
-                <td>1</td>
-                <td>44.9</td>
-              </tr>
-              <tr>
-                <td>飘</td>
-                <td>2022-03-06 12:00:00</td>
-                <td>1</td>
-                <td>66.8</td>
-              </tr>
-            </tbody>
-          </Table>
+          <ReactTable columns={this.state.columns} data={this.state.orders} initialState={{pageSize: 15, sortBy: [{id: 'time', desc: true}]}}/>
+          {/* TODO: filter*/}
+          {/* defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value} */}
         </Col>
       </Row>
     </Container>
   }
+}
+OrderView.propTypes = {
+  id: PropTypes.string.isRequired
 }
