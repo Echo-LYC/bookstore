@@ -1,6 +1,5 @@
 import React from 'react'
 import {Container, Row, Col} from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
 import ReactTable from '../components/reactTable';
@@ -68,7 +67,8 @@ export default class OrderView extends React.PureComponent {
   }
 
   componentDidMount () {
-    // TODO: request get orders by id
+    const user = JSON.parse(localStorage.getItem('user'));
+    // TODO: request get orders by user.id
   }
 
   render () {
@@ -87,7 +87,4 @@ export default class OrderView extends React.PureComponent {
       </Row>
     </Container>
   }
-}
-OrderView.propTypes = {
-  id: PropTypes.string.isRequired
 }

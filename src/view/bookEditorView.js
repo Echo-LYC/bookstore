@@ -44,6 +44,7 @@ export default class BookEditorView extends React.PureComponent {
       return;
     }
     const img = this.state.img ? this.state.img : DEFAULT_COVER;
+    // TODO: price.toFixed(2)
     // this.setState({isLoading: true});
     // TODO: post request and set callback
     // if success go back and refresh
