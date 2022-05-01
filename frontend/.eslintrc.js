@@ -196,7 +196,7 @@ module.exports = {
     'require-yield': 2,
     'template-curly-spacing': 1,
     'yield-star-spacing': 2,
-    'linebreak-style': [2, 'unix'],
+    // 'linebreak-style': [2, 'unix'],
     'react/jsx-boolean-value': 2,
     'react/jsx-curly-spacing': [2, {
       'when': 'never',
