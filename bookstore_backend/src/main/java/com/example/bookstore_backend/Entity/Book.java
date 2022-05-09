@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "book", schema = "bookstore")
 public class Book {
     @Id
@@ -55,4 +52,14 @@ public class Book {
     @Basic
     @Column(name = "image")
     private String image;
+
+    public Book() {}
+
+    public Book(String ISBN, String title, String author, BigDecimal price, int stock) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.stock = stock;
+    }
 }
