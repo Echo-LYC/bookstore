@@ -1,5 +1,6 @@
 package com.example.bookstore_backend.Entity;
 
+import com.example.bookstore_backend.Constant.Auth;
 import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Basic
     @Column(name = "username")

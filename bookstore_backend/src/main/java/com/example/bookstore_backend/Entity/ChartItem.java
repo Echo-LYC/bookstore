@@ -10,11 +10,11 @@ public class ChartItem {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Basic
     @Column(name = "num")
-    private int num;
+    private Integer num;
 
     @ManyToOne
     @JoinColumn(name = "bookId", referencedColumnName = "id")

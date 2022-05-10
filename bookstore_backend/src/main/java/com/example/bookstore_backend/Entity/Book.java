@@ -11,7 +11,7 @@ public class Book {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Basic
     @Column(name = "ISBN")
@@ -43,7 +43,7 @@ public class Book {
 
     @Basic
     @Column(name = "stock")
-    private int stock;
+    private Integer stock;
 
     @Basic
     @Column(name = "synopsis")
@@ -55,11 +55,17 @@ public class Book {
 
     public Book() {}
 
-    public Book(String ISBN, String title, String author, BigDecimal price, int stock) {
+    public Book(String ISBN, String title, String author, String language, String publication, String year,
+                BigDecimal price, Integer stock, String synopsis, String image) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
+        this.language = language;
+        this.publication = publication;
+        this.year = year;
         this.price = price;
         this.stock = stock;
+        this.synopsis = synopsis;
+        this.image = image;
     }
 }
