@@ -16,7 +16,8 @@ CREATE TABLE user(
 	account        DECIMAL(19, 2) UNSIGNED NOT NULL,
     image		   TEXT,
     auth	       ENUM('CUSTOMER', 'ADMINISTRATOR') NOT NULL,
-	valid	       BOOL NOT NULL
+	valid	       BOOL NOT NULL,
+    UNIQUE(username)
 );
 
 CREATE TABLE book(

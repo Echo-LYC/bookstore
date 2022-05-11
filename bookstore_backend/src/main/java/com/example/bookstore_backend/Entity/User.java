@@ -1,6 +1,5 @@
 package com.example.bookstore_backend.Entity;
 
-import com.example.bookstore_backend.Constant.Auth;
 import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,7 +14,7 @@ public class User {
     private Integer id;
 
     @Basic
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Basic
@@ -36,7 +35,7 @@ public class User {
 
     @Basic
     @Column(name = "auth")
-    private Auth auth;
+    private String auth;
 
     @Basic
     @Column(name = "valid")
