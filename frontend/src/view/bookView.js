@@ -1,11 +1,10 @@
 import React from 'react'
-import {Button, Card, Col, Container, Image, Row} from 'react-bootstrap'
+import {Alert, Button, Card, Col, Container, Row} from 'react-bootstrap'
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
 import {DEFAULT_COVER} from './bookEditorView';
 import {request} from "../util/Ajax";
 import FixedImage from "../components/fixedImage";
-import {history} from "../router/router";
 const autobind = require('class-autobind').default;
 
 export default class BookView extends React.PureComponent {
@@ -13,7 +12,7 @@ export default class BookView extends React.PureComponent {
     super(props);
     const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
-      auth: user.auth,
+      user: user,
       image: DEFAULT_COVER,
       title: '',
       author: '',
@@ -24,6 +23,9 @@ export default class BookView extends React.PureComponent {
       price: 0,
       stock: 0,
       synopsis: '',
+      showAlert: false,
+      alertMessage: '',
+      alertVariant: '',
     };
     autobind(this)
   }
@@ -37,7 +39,7 @@ export default class BookView extends React.PureComponent {
             throw new Error(JSON.stringify(res.data));
           }
         }).catch((e) => {
-      console.log(e.message);
+      this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
     });
   }
 
@@ -50,12 +52,31 @@ export default class BookView extends React.PureComponent {
             throw new Error(JSON.stringify(res.data));
           }
         }).catch((e) => {
-          console.log(e.message);
+          this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
         });
   }
 
+  addCart () {
+    const data = {
+      "userid": this.state.user.id,
+      "bookid": this.props.match.params.id,
+      "num": 1,
+    };
+    // TODO: different num
+    request("/cart/add", "POST", data)
+        .then((res) => {
+          if (res.ok) {
+            this.setState({showAlert: true, alertMessage: "成功加入购物车", alertVariant: "success"});
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+      this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
+    });
+  }
+
   render () {
-    const isAdmin = this.state.auth === 'ADMINISTRATOR';
+    const isAdmin = this.state.user.auth === 'ADMINISTRATOR';
     const image = (this.state.image) ? this.state.image : DEFAULT_COVER;
     return <Container>
       <HeaderInfo/>
@@ -92,7 +113,7 @@ export default class BookView extends React.PureComponent {
           <br/>
           {!isAdmin && <Row className="justify-content-around">
             <Col sm={3}>
-              <Button size="lg" className="w-100" variant="danger">加入购物车</Button>
+              <Button size="lg" className="w-100" variant="danger" onClick={this.addCart}>加入购物车</Button>
             </Col>
             <Col sm={3}>
               <Button size="lg" className="w-100" variant="outline-danger">立即购买</Button>
@@ -106,6 +127,9 @@ export default class BookView extends React.PureComponent {
               <Button size="lg" className="w-100" variant="danger" onClick={this.deleteBook}>删除图书</Button>
             </Col>
           </Row>}
+          {this.state.showAlert && <Alert variant={this.state.alertVariant} onClose={() => this.setState({showAlert: false})} style={{position: 'sticky', bottom: '15px'}} dismissible>
+            <p>{this.state.alertMessage}</p>
+          </Alert>}
         </Col>
       </Row>
     </Container>

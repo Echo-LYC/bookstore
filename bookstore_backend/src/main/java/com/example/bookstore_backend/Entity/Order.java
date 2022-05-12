@@ -21,6 +21,6 @@ public class Order {
     private Timestamp time;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userid", referencedColumnName = "id")
     private User user;
 }

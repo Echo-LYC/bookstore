@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@Table(name = "orderItem", schema = "bookstore")
+@Table(name = "orderitem", schema = "bookstore")
 public class OrderItem {
     @Id
     @Column(name = "id")
@@ -22,10 +22,10 @@ public class OrderItem {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "bookId", referencedColumnName = "id")
+    @JoinColumn(name = "bookid", referencedColumnName = "id")
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    @JoinColumn(name = "orderid", referencedColumnName = "id")
     private Order order;
 }

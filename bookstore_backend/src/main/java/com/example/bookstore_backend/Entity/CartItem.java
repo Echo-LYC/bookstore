@@ -5,8 +5,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "chartItem", schema = "bookstore")
-public class ChartItem {
+@Table(name = "cartitem", schema = "bookstore")
+public class CartItem {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +17,10 @@ public class ChartItem {
     private Integer num;
 
     @ManyToOne
-    @JoinColumn(name = "bookId", referencedColumnName = "id")
+    @JoinColumn(name = "bookid", referencedColumnName = "id")
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userid", referencedColumnName = "id")
     private User user;
 }

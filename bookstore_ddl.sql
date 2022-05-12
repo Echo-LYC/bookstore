@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS orderItem;
-DROP TABLE IF EXISTS chartItem;
+DROP TABLE IF EXISTS cartItem;
 SET foreign_key_checks=1;
 
 CREATE TABLE user(
@@ -51,7 +51,7 @@ CREATE TABLE orderItem(
     FOREIGN KEY (bookId) REFERENCES book(id) ON DELETE CASCADE
 );
 
-CREATE TABLE chartItem(
+CREATE TABLE cartItem(
 	id             INTEGER PRIMARY KEY AUTO_INCREMENT,
     userId         INTEGER NOT NULL,
     bookId         INTEGER NOT NULL,
