@@ -13,6 +13,8 @@ export async function request(url, method, data) {
         requestInfo.body = JSON.stringify(data);
     }
     const res = await fetch(url, requestInfo);
-    res.data = await res.json();
+    if (res.headers.get("Content-Type") === "application/json") {
+        res.data = await res.json();
+    }
     return res;
 }

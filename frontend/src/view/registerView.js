@@ -1,30 +1,45 @@
 import React from 'react'
-import {Col, Container, Form, Button, Row, InputGroup, FormControl} from 'react-bootstrap'
+import {Col, Container, Form, Button, Row, InputGroup, FormControl, Alert} from 'react-bootstrap'
 import {history} from '../router/router';
-const autobind = require('class-autobind').default
+import {request} from "../Util/Ajax";
+const autobind = require('class-autobind').default;
 
 export default class RegisterView extends React.PureComponent {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       username: '',
       password: '',
       confirmPassword: '',
       email: '',
       validated: false,
-    }
+      showAlert: false,
+      alertMessage: '',
+    };
     autobind(this)
   }
 
   handleRegister (e) {
     this.setState({validated: true});
+    e.preventDefault();
+    e.stopPropagation();
     const form = e.currentTarget;
-    if (form.checkValidity() === false || this.state.confirmPassword !== this.state.password) {
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    // TODO: post request and set callback
+    if (form.checkValidity() === false || this.state.confirmPassword !== this.state.password) return;
+    const data = {
+      "username": this.state.username,
+      "password": this.state.password,
+      "email": this.state.email,
+    };
+    request("/register", "POST", data)
+        .then((res) => {
+          if (res.ok) {
+            history.back();
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          this.setState({showAlert: true, alertMessage: e.message});
+        });
   }
 
   render () {
@@ -82,6 +97,10 @@ export default class RegisterView extends React.PureComponent {
             </Col>
           </Form.Group>
         </Form>
+        {this.state.showAlert && <Alert variant="danger" onClose={() => this.setState({showAlert: false})} style={{position: 'sticky', bottom: '15px'}} dismissible>
+          <Alert.Heading>You got an error!</Alert.Heading>
+          <p>{this.state.alertMessage}</p>
+        </Alert>}
       </Col>
     </Container>
   }

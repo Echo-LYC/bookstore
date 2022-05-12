@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 
 export default class SideBar extends React.PureComponent {
   constructor (props) {
-    super(props)
-    const user = JSON.parse(localStorage.getItem('user'))
+    super(props);
+    const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
       auth: user.auth
     }
   }
 
   render () {
-    const isAdmin = this.state.auth === 'ROLE_ADMINISTRATOR'
+    const isAdmin = this.state.auth === 'ADMINISTRATOR';
     return <Nav variant="pills" defaultActiveKey={this.props.defaultActiveKey} className="flex-column">
       <Nav.Item>
         <Nav.Link href="/home"><i className="fa fa-book"/> Books</Nav.Link>
@@ -37,4 +37,4 @@ export default class SideBar extends React.PureComponent {
 }
 SideBar.propTypes = {
   defaultActiveKey: PropTypes.string.isRequired
-}
+};

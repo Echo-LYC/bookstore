@@ -7,11 +7,11 @@ import BookCarousel from '../components/bookCarousel'
 import BookCard from '../components/bookCard'
 import book1 from '../assets/book/book1.jpg'
 import book2 from '../assets/book/book2.jpg'
-const autobind = require('class-autobind').default
+const autobind = require('class-autobind').default;
 
 export default class HomeView extends React.PureComponent {
   constructor (props) {
-    super(props)
+    super(props);
     const user = JSON.parse(localStorage.getItem('user'))
     const book_1 = {
       bookId: '12345',
@@ -38,7 +38,7 @@ export default class HomeView extends React.PureComponent {
       auth: user.auth,
       books: books,
       searchBooks: books,
-    }
+    };
     autobind(this)
   }
 
@@ -52,7 +52,7 @@ export default class HomeView extends React.PureComponent {
   }
 
   render () {
-    const isAdmin = this.state.auth === 'ROLE_ADMINISTRATOR';
+    const isAdmin = this.state.auth === 'ADMINISTRATOR';
     return <Container>
       <HeaderInfo/>
       <hr className="bordered-dashed"/>

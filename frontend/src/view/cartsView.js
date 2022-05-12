@@ -4,11 +4,11 @@ import HeaderInfo from '../components/headerInfo';
 import SideBar from '../components/sideBar';
 import book1 from '../assets/book/book1.jpg';
 import book2 from '../assets/book/book2.jpg';
-const autobind = require('class-autobind').default
+const autobind = require('class-autobind').default;
 
 export default class CartsView extends React.PureComponent {
   constructor (props) {
-    super(props)
+    super(props);
     // TODO: search 改一下主页的搜索方法，array中的每个object加个flag记录是否符合搜索结果
     // TODO: 库存为0的特殊处理，加个“无货”overlay，有货和无货分为两个list group，上面有货下面无货，无货只有删除按钮
     this.state = {

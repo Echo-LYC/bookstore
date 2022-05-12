@@ -30,9 +30,8 @@ export default class LoginView extends React.PureComponent {
     request("/login", "POST", data)
         .then((res) => {
           if (res.ok) {
-            console.log(res.data);
-            // localStorage.setItem("user", JSON.stringify(res.data));
-            history.back();
+            localStorage.setItem("user", JSON.stringify(res.data));
+            history.push("/home");
           } else {
             throw new Error(JSON.stringify(res.data));
           }

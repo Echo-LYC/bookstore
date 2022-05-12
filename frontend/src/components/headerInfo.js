@@ -4,10 +4,10 @@ import logo from '../assets/logo.png'
 
 export default class HeaderInfo extends React.PureComponent {
   constructor (props) {
-    super(props)
-    const user = JSON.parse(localStorage.getItem('user'))
+    super(props);
+    const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
-      userInfo: user.userInfo
+      user: user
     }
   }
 
@@ -27,8 +27,8 @@ export default class HeaderInfo extends React.PureComponent {
         <Nav defaultActiveKey="/login">
           <Nav.Item>
             <Nav.Link className="text-muted fs-5" href="/login">
-              {this.state.userInfo.username}{' '}
-              {this.state.userInfo.img && <Image roundedCircle={50} width={50} height={50} src={this.state.userInfo.img}/>}
+              {this.state.user.username}{' '}
+              {this.state.user.image && <Image roundedCircle={50} width={50} height={50} src={this.state.user.image}/>}
             </Nav.Link>
           </Nav.Item>
         </Nav>

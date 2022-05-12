@@ -30,8 +30,7 @@ export default class BasicRouter extends React.Component {
         <Route exact path="/editor" component={BookEditorView}/>
         <Route exact path="/orders" component={OrderView}/>
         <Route exact path="/cart" component={CartsView}/>
-        <Route exact path="/" component={HomeView}/>
-        <Redirect from="/*" to="/home"/>
+        <Redirect from="/*" to="/login"/>
       </Switch>
     </Router>
   }

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
 import {DEFAULT_COVER} from './bookEditorView';
-const autobind = require('class-autobind').default
+const autobind = require('class-autobind').default;
 
 export default class BookView extends React.PureComponent {
   constructor (props) {
-    super(props)
-    const user = JSON.parse(localStorage.getItem('user'))
+    super(props);
+    const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
       auth: user.auth,
       img: DEFAULT_COVER,
@@ -19,7 +19,7 @@ export default class BookView extends React.PureComponent {
       price: 0,
       stock: 0,
       synopsis: '',
-    }
+    };
     autobind(this)
   }
 
@@ -28,7 +28,7 @@ export default class BookView extends React.PureComponent {
   }
 
   render () {
-    const isAdmin = this.state.auth === 'ROLE_ADMINISTRATOR';
+    const isAdmin = this.state.auth === 'ADMINISTRATOR';
     return <Container>
       <HeaderInfo/>
       <hr className="bordered-dashed"/>
@@ -82,4 +82,4 @@ export default class BookView extends React.PureComponent {
 }
 BookView.propTypes = {
   id: PropTypes.string.isRequired
-}
+};
