@@ -33,7 +33,7 @@ export default class RegisterView extends React.PureComponent {
     request("/register", "POST", data)
         .then((res) => {
           if (res.ok) {
-            history.back();
+            window.location.replace(document.referrer);
           } else {
             throw new Error(JSON.stringify(res.data));
           }

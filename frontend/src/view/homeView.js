@@ -62,7 +62,7 @@ export default class HomeView extends React.PureComponent {
           <br/>
           <Row xs={1} md={4} className="g-4">
             {isAdmin && <Col>
-              <Button bsSize="lg" bsStyle="success" className="w-100 fs-4" href='/editor'>
+              <Button size="lg" variant="primary" className="w-100 fs-4" href='/editor'>
                 <i className="fa fa-plus fa-lg"/> 添加图书
               </Button>
             </Col>}

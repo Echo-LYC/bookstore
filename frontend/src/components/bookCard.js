@@ -16,16 +16,8 @@ export default class BookCard extends React.PureComponent {
       <a href={'/book/' + book.id} style={{ textDecoration: 'none' }}>
         <Card.Img className="w-100" height={200} variant="top" src={image} />
         <Card.Body>
-          <Card.Title>
-            <Row className="justify-content-between">
-              <Col md="auto" className="mb-2 text-black fs-5">
-                {book.title}
-              </Col>
-              <Col md="auto" className="mb-2 text-muted fs-6">
-                {book.author}
-              </Col>
-            </Row>
-          </Card.Title>
+          <Card.Title className="mb-2 text-black fs-5">{book.title}</Card.Title>
+          <Card.Title className="mb-2 text-muted fs-6">{book.author}</Card.Title>
           <Card.Subtitle className="text-danger">
             <Row className="justify-content-between">
               <Col md="auto">

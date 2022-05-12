@@ -59,7 +59,7 @@ export default class BookEditorView extends React.PureComponent {
     request("/book", "POST", data)
         .then((res) => {
           if (res.ok) {
-            history.back();
+            window.location.replace(document.referrer);
           } else {
             throw new Error(JSON.stringify(res.data));
           }

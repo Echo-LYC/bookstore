@@ -5,6 +5,7 @@ import HeaderInfo from '../components/headerInfo'
 import {DEFAULT_COVER} from './bookEditorView';
 import {request} from "../util/Ajax";
 import FixedImage from "../components/fixedImage";
+import {history} from "../router/router";
 const autobind = require('class-autobind').default;
 
 export default class BookView extends React.PureComponent {
@@ -38,6 +39,19 @@ export default class BookView extends React.PureComponent {
         }).catch((e) => {
       console.log(e.message);
     });
+  }
+
+  deleteBook () {
+    request("/book/" + this.props.match.params.id, "DELETE")
+        .then((res) => {
+          if (res.ok) {
+            window.location.replace(document.referrer);
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          console.log(e.message);
+        });
   }
 
   render () {
@@ -89,7 +103,7 @@ export default class BookView extends React.PureComponent {
               <Button size="lg" className="w-100" variant="outline-success" href={'/editor/' + this.props.match.params.id}>编辑图书详情</Button>
             </Col>
             <Col sm={3}>
-              <Button size="lg" className="w-100" variant="danger">删除图书</Button>
+              <Button size="lg" className="w-100" variant="danger" onClick={this.deleteBook}>删除图书</Button>
             </Col>
           </Row>}
         </Col>
