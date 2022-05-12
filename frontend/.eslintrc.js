@@ -61,7 +61,7 @@ module.exports = {
     'no-extra-boolean-cast': 2,
     'no-extra-parens': 0,
 
-    'curly': [2, 'all'],
+    // 'curly': [2, 'all'],
     'no-catch-shadow': 0,
     'no-label-var': 2,
     'no-restricted-globals': 2,
@@ -84,9 +84,9 @@ module.exports = {
     'consistent-this': [2, 'self', 'that', '_self', '_that', 'me', '_this'],
     'func-names': 0,
     'eol-last': 2,
-    'indent': [
-      'error', 2
-    ],
+    // 'indent': [
+    //   'error', 2
+    // ],
     'func-call-spacing': 2,
     'key-spacing': [2, {
       'beforeColon': false,
@@ -148,12 +148,12 @@ module.exports = {
     }],
     'padded-blocks': 0,
     'quote-props': 0,
-    'quotes': [2, 'single', 'avoid-escape'],
+    // 'quotes': [2, 'single', 'avoid-escape'],
     'require-jsdoc': 0,
     'semi-spacing': 2,
     'sort-vars': 0,
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'always'],
+    // 'space-before-function-paren': [2, 'always'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {

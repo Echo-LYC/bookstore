@@ -1,27 +1,44 @@
 import React from 'react'
-import { Col, Container, Form, Button, Row } from 'react-bootstrap'
+import {Col, Container, Form, Button, Row, Alert} from 'react-bootstrap'
+import {request} from "../Util/Ajax";
+import {history} from "../router/router";
 const autobind = require('class-autobind').default
 
 export default class LoginView extends React.PureComponent {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       username: '',
       password: '',
       validated: false,
-    }
-    autobind(this)
+      showAlert: false,
+      alertMessage: '',
+    };
+    autobind(this);
   }
 
   handleLogin (e) {
     this.setState({validated: true});
+    e.preventDefault();
+    e.stopPropagation();
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    // TODO: post request and set callback
+    if (form.checkValidity() === false) return;
+    const data = {
+      "username": this.state.username,
+      "password": this.state.password,
+    };
+    request("/login", "POST", data)
+        .then((res) => {
+          if (res.ok) {
+            console.log(res.data);
+            // localStorage.setItem("user", JSON.stringify(res.data));
+            history.back();
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          this.setState({showAlert: true, alertMessage: e.message});
+        });
   }
 
   render () {
@@ -59,6 +76,10 @@ export default class LoginView extends React.PureComponent {
             </Col>
           </Form.Group>
         </Form>
+        {this.state.showAlert && <Alert variant="danger" onClose={() => this.setState({showAlert: false})} style={{position: 'sticky', bottom: '15px'}} dismissible>
+          <Alert.Heading>You got an error!</Alert.Heading>
+          <p>{this.state.alertMessage}</p>
+        </Alert>}
       </Col>
     </Container>
   }
