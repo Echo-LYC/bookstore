@@ -1,6 +1,6 @@
 import React from 'react'
 import {Col, Container, Form, Button, Row, Alert} from 'react-bootstrap'
-import {request} from "../Util/Ajax";
+import {request} from "../util/Ajax";
 import {history} from "../router/router";
 const autobind = require('class-autobind').default
 

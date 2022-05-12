@@ -1,9 +1,10 @@
 import React from 'react'
 import {Button, Card, Col, Container, Image, Row} from 'react-bootstrap'
-import PropTypes from 'prop-types';
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
 import {DEFAULT_COVER} from './bookEditorView';
+import {request} from "../util/Ajax";
+import FixedImage from "../components/fixedImage";
 const autobind = require('class-autobind').default;
 
 export default class BookView extends React.PureComponent {
@@ -12,10 +13,13 @@ export default class BookView extends React.PureComponent {
     const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
       auth: user.auth,
-      img: DEFAULT_COVER,
+      image: DEFAULT_COVER,
       title: '',
       author: '',
-      ISBN: '',
+      isbn: '',
+      language: '',
+      publication: '',
+      year: '',
       price: 0,
       stock: 0,
       synopsis: '',
@@ -24,11 +28,21 @@ export default class BookView extends React.PureComponent {
   }
 
   componentDidMount () {
-    // TODO: request get book detail by id
+    request("/book/" + this.props.match.params.id, "GET")
+        .then((res) => {
+          if (res.ok) {
+            this.setState(res.data);
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+      console.log(e.message);
+    });
   }
 
   render () {
     const isAdmin = this.state.auth === 'ADMINISTRATOR';
+    const image = (this.state.image) ? this.state.image : DEFAULT_COVER;
     return <Container>
       <HeaderInfo/>
       <hr className="bordered-dashed"/>
@@ -39,7 +53,7 @@ export default class BookView extends React.PureComponent {
         <Col sm={{ span: 7, offset: 1 }}>
           <Row className="justify-content-around">
             <Col md="auto">
-              <Image style={{maxWidth: 300, maxHeight: 300}} src={this.state.img}/>
+              <FixedImage src={image} maxHeight={300} maxWidth={300}/>
             </Col>
             <Col>
               <Card>
@@ -47,13 +61,16 @@ export default class BookView extends React.PureComponent {
                   <Card.Title className="fs-2">{this.state.title}</Card.Title>
                   <hr className="bordered-dashed"/>
                   <Card.Title>作者：<span className="text-muted">{this.state.author}</span></Card.Title>
-                  <Card.Title>ISBN：<span className="text-muted">{this.state.ISBN}</span></Card.Title>
-                  <Card.Title>定价：<span className="text-danger">￥{this.state.price}</span></Card.Title>
+                  {this.state.language && <Card.Title>语言：<span className="text-muted">{this.state.language}</span></Card.Title>}
+                  <Card.Title>ISBN：<span className="text-muted">{this.state.isbn}</span></Card.Title>
+                  {this.state.publication && <Card.Title>{this.state.publication} {this.state.year && <span className="text-muted fs-6">{this.state.year}出版</span>}</Card.Title>}
                   <Card.Title>状态：{this.state.stock ? '有货' : '无货'} <span className="text-muted fs-6">库存{this.state.stock}件</span></Card.Title>
-                  <Card.Text>
+                  <Card.Title>定价：<span className="text-danger fs-3">￥{this.state.price}</span></Card.Title>
+                  {this.state.synopsis && <hr className="bordered-dashed"/>}
+                  {this.state.synopsis && <Card.Text>
                     <span className="fs-5">作品简介：</span>
                     {this.state.synopsis}
-                  </Card.Text>
+                  </Card.Text>}
                 </Card.Body>
               </Card>
             </Col>
@@ -69,7 +86,7 @@ export default class BookView extends React.PureComponent {
           </Row>}
           {isAdmin && <Row className="justify-content-around">
             <Col sm={3}>
-              <Button size="lg" className="w-100" variant="outline-success" href={'/editor?id=' + this.props.id}>编辑图书详情</Button>
+              <Button size="lg" className="w-100" variant="outline-success" href={'/editor/' + this.props.match.params.id}>编辑图书详情</Button>
             </Col>
             <Col sm={3}>
               <Button size="lg" className="w-100" variant="danger">删除图书</Button>
@@ -80,6 +97,3 @@ export default class BookView extends React.PureComponent {
     </Container>
   }
 }
-BookView.propTypes = {
-  id: PropTypes.string.isRequired
-};

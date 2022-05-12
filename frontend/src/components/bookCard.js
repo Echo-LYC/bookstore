@@ -1,18 +1,20 @@
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import PropTypes from 'prop-types';
+import {DEFAULT_COVER} from "../view/bookEditorView";
 
 export default class BookCard extends React.PureComponent {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {}
   }
 
   render () {
     const book = this.props.book;
+    const image = (book.image) ? book.image : DEFAULT_COVER;
     return <Card>
-      <a href={'/book?id=' + book.bookId} style={{ textDecoration: 'none' }}>
-        <Card.Img className="w-100" height={200} variant="top" src={book.img} />
+      <a href={'/book/' + book.id} style={{ textDecoration: 'none' }}>
+        <Card.Img className="w-100" height={200} variant="top" src={image} />
         <Card.Body>
           <Card.Title>
             <Row className="justify-content-between">
@@ -24,7 +26,6 @@ export default class BookCard extends React.PureComponent {
               </Col>
             </Row>
           </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted fs-6">ISBN: {book.ISBN}</Card.Subtitle>
           <Card.Subtitle className="text-danger">
             <Row className="justify-content-between">
               <Col md="auto">
@@ -42,4 +43,4 @@ export default class BookCard extends React.PureComponent {
 }
 BookCard.propTypes = {
   book: PropTypes.object.isRequired
-}
+};

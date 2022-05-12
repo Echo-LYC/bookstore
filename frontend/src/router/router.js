@@ -26,8 +26,9 @@ export default class BasicRouter extends React.Component {
         <Route exact path="/home" component={HomeView} />
         <Route exact path="/login" component={LoginView}/>
         <Route exact path="/register" component={RegisterView}/>
-        <Route exact path="/book" component={BookView}/>
+        <Route exact path="/book/:id" component={BookView}/>
         <Route exact path="/editor" component={BookEditorView}/>
+        <Route exact path="/editor/:id" component={BookEditorView}/>
         <Route exact path="/orders" component={OrderView}/>
         <Route exact path="/cart" component={CartsView}/>
         <Redirect from="/*" to="/login"/>

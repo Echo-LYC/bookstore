@@ -14,7 +14,7 @@ CREATE TABLE user(
 	password	   VARCHAR(20) NOT NULL,
 	email          VARCHAR(50) NOT NULL,
 	account        DECIMAL(19, 2) UNSIGNED NOT NULL,
-    image		   TEXT,
+    image		   MEDIUMTEXT,
     auth	       ENUM('CUSTOMER', 'ADMINISTRATOR') NOT NULL,
 	valid	       BOOL NOT NULL,
     UNIQUE(username)
@@ -27,11 +27,11 @@ CREATE TABLE book(
 	author		   VARCHAR(50) NOT NULL,
 	language       VARCHAR(50),
     publication    VARCHAR(50),
-	year           YEAR,
+	year           DATE,
 	price          DECIMAL(19, 2) UNSIGNED NOT NULL,
     stock          INTEGER UNSIGNED NOT NULL,
 	synopsis       TEXT,
-	image          TEXT
+	image          MEDIUMTEXT
 );
 
 CREATE TABLE orders(

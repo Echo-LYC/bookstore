@@ -7,7 +7,7 @@ module.exports = {
   'parser': 'babel-eslint',
   'extends': [
     'eslint:recommended',
-    'plugin:react/recommended'
+    // 'plugin:react/recommended'
   ],
   'parserOptions': {
     'ecmaVersion': 7,
@@ -160,9 +160,9 @@ module.exports = {
       'words': true,
       'nonwords': false
     }],
-    'spaced-comment': [2, 'always', {
-      'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!']
-    }],
+    // 'spaced-comment': [2, 'always', {
+    //   'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!']
+    // }],
     'unicode-bom': 2,
     'wrap-regex': 0,
     'no-case-declarations': ['warn'],

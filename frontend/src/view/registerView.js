@@ -1,7 +1,7 @@
 import React from 'react'
 import {Col, Container, Form, Button, Row, InputGroup, FormControl, Alert} from 'react-bootstrap'
 import {history} from '../router/router';
-import {request} from "../Util/Ajax";
+import {request} from "../util/Ajax";
 const autobind = require('class-autobind').default;
 
 export default class RegisterView extends React.PureComponent {

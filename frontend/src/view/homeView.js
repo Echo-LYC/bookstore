@@ -5,54 +5,48 @@ import HeaderInfo from '../components/headerInfo'
 import SearchBar from '../components/searchBar'
 import BookCarousel from '../components/bookCarousel'
 import BookCard from '../components/bookCard'
-import book1 from '../assets/book/book1.jpg'
-import book2 from '../assets/book/book2.jpg'
+import {request} from "../util/Ajax";
 const autobind = require('class-autobind').default;
 
 export default class HomeView extends React.PureComponent {
   constructor (props) {
     super(props);
-    const user = JSON.parse(localStorage.getItem('user'))
-    const book_1 = {
-      bookId: '12345',
-      img: book1,
-      title: '红楼梦',
-      author: '曹雪芹',
-      ISBN: '9787020002207',
-      price: 59.7,
-      stock: 1037,
-    };
-    const book_2 = {
-      bookId: '11111',
-      img: book2,
-      title: '傲慢与偏见',
-      author: '简奥斯汀',
-      ISBN: '9787544711302',
-      price: 18.5,
-      stock: 3007,
-    };
-    const books = new Array(10);
-    books.fill(book_1);
-    books.push(book_2);
+    const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
       auth: user.auth,
-      books: books,
-      searchBooks: books,
+      books: [],
     };
     autobind(this)
   }
 
+  componentDidMount () {
+    request("/books", "GET")
+        .then((res) => {
+          if (res.ok) {
+            res.data.map((book) => book.show = true);
+            this.setState({books: res.data});
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          console.log(e.message);
+        });
+  }
+
   search (pattern) {
+    const books = this.state.books.slice();
     if (pattern) {
       pattern = pattern.toLowerCase();
-      this.setState({searchBooks: this.state.books.filter((x) => x.title.toLowerCase().indexOf(pattern) > -1)});
+      books.map((book) => book.show = book.title.toLowerCase().indexOf(pattern) > -1);
     } else {
-      this.setState({searchBooks: this.state.books});
+      books.map((book) => book.show = true);
     }
+    this.setState({books: books});
   }
 
   render () {
     const isAdmin = this.state.auth === 'ADMINISTRATOR';
+    const books = this.state.books.filter((book) => book.show);
     return <Container>
       <HeaderInfo/>
       <hr className="bordered-dashed"/>
@@ -72,8 +66,8 @@ export default class HomeView extends React.PureComponent {
                 <i className="fa fa-plus fa-lg"/> 添加图书
               </Button>
             </Col>}
-            {this.state.searchBooks.map((x, i) => <Col key={i}>
-              <BookCard book={x}/>
+            {books.map((book) => <Col key={book.id}>
+              <BookCard book={book}/>
             </Col>)}
           </Row>
         </Col>

@@ -37,7 +37,7 @@ public class BookController {
     @PostMapping("/book")
     public void post(@RequestBody JSONObject request) {
         Integer id = request.getInteger("id");
-        String ISBN = request.getString("ISBN");
+        String ISBN = request.getString("isbn");
         String title = request.getString("title");
         String author = request.getString("author");
         String language = request.getString("language");
