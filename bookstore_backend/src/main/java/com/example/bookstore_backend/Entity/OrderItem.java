@@ -28,4 +28,12 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "orderid", referencedColumnName = "id")
     private Order order;
+
+    public OrderItem() {}
+
+    public OrderItem(CartItem cartItem) {
+        this.num = cartItem.getNum();
+        this.book = cartItem.getBook();
+        this.price = cartItem.getBook().getPrice();
+    }
 }

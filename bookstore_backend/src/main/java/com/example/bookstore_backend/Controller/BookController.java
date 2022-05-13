@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class BookController {
     @Autowired
     private BookService bookService;

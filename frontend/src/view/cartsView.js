@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, Col, Container, Form, InputGroup, ListGroup, Row} from 'react-bootstrap';
+import {Alert, Button, Card, Col, Container, Form, InputGroup, ListGroup, Row} from 'react-bootstrap';
 import HeaderInfo from '../components/headerInfo';
 import SideBar from '../components/sideBar';
 import FixedImage from "../components/fixedImage";
@@ -7,20 +7,28 @@ import {request} from "../util/Ajax";
 import {DEFAULT_COVER} from "./bookEditorView";
 const autobind = require('class-autobind').default;
 
+// TODO: 库存为0的特殊处理，加个“无货”overlay，有货和无货分为两个list group，上面有货下面无货，无货只有删除按钮
+// 加入购物车在数据库中insert，购买删除在数据库中delete，+-暂时在内存中更改number，之后可以考虑在数据库中update
 export default class CartsView extends React.PureComponent {
   constructor (props) {
     super(props);
-    // TODO: 库存为0的特殊处理，加个“无货”overlay，有货和无货分为两个list group，上面有货下面无货，无货只有删除按钮
-    // 加入购物车在数据库中insert，购买删除在数据库中delete，+-暂时在内存中更改number，之后可以考虑在数据库中update
+    const user = JSON.parse(localStorage.getItem('user'));
     this.state = {
+      user: user,
       carts: [],
+      showAlert: false,
+      alertMessage: '',
+      alertVariant: '',
     };
     autobind(this)
   }
 
   componentDidMount () {
-    const user = JSON.parse(localStorage.getItem('user'));
-    request("/cart/" + user.id, "GET")
+    this.getCart();
+  }
+
+  getCart () {
+    request("/cart/" + this.state.user.id, "GET")
         .then((res) => {
           if (res.ok) {
             res.data.map((x) => x.checked = false);
@@ -29,8 +37,8 @@ export default class CartsView extends React.PureComponent {
             throw new Error(JSON.stringify(res.data));
           }
         }).catch((e) => {
-      console.log(e.message);
-    });
+          this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
+        });
   }
 
   setCart (i, what) {
@@ -46,12 +54,30 @@ export default class CartsView extends React.PureComponent {
     request("/cart/del", "POST", data)
         .then((res) => {
           if (res.ok) {
-            window.location.reload();
+            this.getCart();
           } else {
             throw new Error(JSON.stringify(res.data));
           }
         }).catch((e) => {
-          console.log(e.message);
+          this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
+        });
+  }
+
+  order () {
+    const data = {
+      userid: this.state.user.id,
+      cartids: this.state.carts.filter((x) => x.checked).map((x) => x.id),
+    };
+    request("/order", "POST", data)
+        .then((res) => {
+          if (res.ok) {
+            this.setState({showAlert: true, alertMessage: "购买成功，共消费￥" + res.data.total, alertVariant: "success"});
+            this.getCart();
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          this.setState({showAlert: true, alertMessage: e.message, alertVariant: "danger"});
         });
   }
 
@@ -113,7 +139,7 @@ export default class CartsView extends React.PureComponent {
               <Row className="justify-content-end">
                 <Col md="auto" className="text-danger fs-2">￥{totalPrice}</Col>
                 <Col md="auto">
-                  <Button size="lg" variant="danger">购买</Button>
+                  <Button size="lg" variant="danger" onClick={this.order}>购买</Button>
                 </Col>
                 <Col md="auto">
                   <Button size="lg" variant="outline-danger" onClick={this.deleteCart}>删除</Button>
@@ -121,6 +147,9 @@ export default class CartsView extends React.PureComponent {
               </Row>
             </Card.Footer>
           </Card>
+          {this.state.showAlert && <Alert variant={this.state.alertVariant} onClose={() => this.setState({showAlert: false})} style={{position: 'sticky', bottom: '15px'}} dismissible>
+            <p>{this.state.alertMessage}</p>
+          </Alert>}
         </Col>
       </Row>
     </Container>

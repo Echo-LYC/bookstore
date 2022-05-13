@@ -1,74 +1,34 @@
 import React from 'react'
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Placeholder} from 'react-bootstrap';
 import SideBar from '../components/sideBar'
 import HeaderInfo from '../components/headerInfo'
-import ReactTable from '../components/reactTable';
-const autobind = require('class-autobind').default
+import OrderCard from "../components/orderCard";
+import {request} from "../util/Ajax";
+const autobind = require('class-autobind').default;
 
 export default class OrderView extends React.PureComponent {
   constructor (props) {
-    super(props)
-    const order1 = {
-      title: '红楼梦',
-      username: 'Echo',
-      time: '2022-03-06 12:00:00',
-      number: 1,
-      price: 59.7
-    };
-    const order2 = {
-      title: '傲慢与偏见',
-      username: 'Lucy',
-      time: '2022-03-18 12:00:00',
-      number: 2,
-      price: 18.8
-    };
-    const order3 = {
-      title: '飘',
-      username: 'Echo',
-      time: '2022-03-23 12:00:00',
-      number: 1,
-      price: 27.9
-    };
-    const orders = new Array(30);
-    orders.fill(order1, 0, 10);
-    orders.fill(order2, 10, 20);
-    orders.fill(order3, 20);
+    super(props);
     this.state = {
-      orders: orders,
-      columns: [
-        {
-          Header: '书名',
-          accessor: 'title',
-          id: 'title',
-        },
-        {
-          Header: '用户名',
-          accessor: 'username',
-          id: 'username',
-        },
-        {
-          Header: '下单时间',
-          accessor: 'time',
-          id: 'time',
-        },
-        {
-          Header: '数量',
-          accessor: 'number',
-          id: 'number',
-        },
-        {
-          Header: '价格',
-          accessor: 'price',
-          id: 'price',
-        },
-      ],
-    }
+      orders: [],
+    };
     autobind(this)
   }
 
   componentDidMount () {
     const user = JSON.parse(localStorage.getItem('user'));
-    // TODO: request get orders by user.id
+    request("/order/" + user.id, "GET")
+        .then((res) => {
+          if (res.ok) {
+            res.data.map((x) => x.time = new Date(x.time));
+            res.data.sort((a, b) => b.time - a.time);
+            this.setState({orders: res.data});
+          } else {
+            throw new Error(JSON.stringify(res.data));
+          }
+        }).catch((e) => {
+          console.log(e.message);
+        });
   }
 
   render () {
@@ -80,9 +40,10 @@ export default class OrderView extends React.PureComponent {
           <SideBar defaultActiveKey="/orders"/>
         </Col>
         <Col sm={9}>
-          <ReactTable columns={this.state.columns} data={this.state.orders} initialState={{pageSize: 15, sortBy: [{id: 'time', desc: true}]}}/>
-          {/* TODO: filter*/}
-          {/* defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value} */}
+          {this.state.orders.map((x) => <Col key={x.id}>
+            <OrderCard order={x}/>
+            <Placeholder xs={12} bg="light" />
+          </Col>)}
         </Col>
       </Row>
     </Container>
