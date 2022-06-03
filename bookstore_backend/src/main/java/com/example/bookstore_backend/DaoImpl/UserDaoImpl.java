@@ -6,6 +6,8 @@ import com.example.bookstore_backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
     @Autowired
@@ -29,5 +31,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 }

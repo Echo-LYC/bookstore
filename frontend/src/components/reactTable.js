@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function ReactTable ({ columns, data, initialState }) {
-  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, canPreviousPage,
+  const { getTableProps, getTableBodyProps, headerGroups, footerGroups, page, prepareRow, canPreviousPage,
     canNextPage, pageOptions, pageCount, gotoPage, nextPage, previousPage, state: { pageIndex }, } = useTable({
     columns,
     data,
@@ -42,6 +42,15 @@ export default function ReactTable ({ columns, data, initialState }) {
             )
           })}
         </tbody>
+        <tfoot>
+        {footerGroups.map((group, i) => (
+            <tr key={i} {...group.getFooterGroupProps()}>
+              {group.headers.map((column, index) => (
+                  <td key={index} {...column.getFooterProps()}>{column.render('Footer')}</td>
+              ))}
+            </tr>
+        ))}
+        </tfoot>
       </Table>
       <Row className="justify-content-center">
         <Col sm="auto">

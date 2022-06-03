@@ -7,10 +7,24 @@ import com.example.bookstore_backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("/users")
+    public List<User> getAll() {
+        return userService.getAll();
+    }
+
+    @PostMapping("/users/prohibit")
+    public void prohibit(@RequestBody JSONObject request) {
+        List<Integer> ids = JSONObject.parseArray(request.getString("userids"), Integer.class);
+        Boolean valid = request.getBoolean("valid");
+        userService.prohibit(ids, valid);
+    }
 
     @PostMapping("/login")
     public User login(@RequestBody JSONObject request) {

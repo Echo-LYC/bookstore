@@ -1,4 +1,4 @@
-export const SERVICE_URL = 'http://192.168.1.112:8088';
+export const SERVICE_URL = 'http://192.168.1.103:8088';
 
 export async function request(url, method, data) {
     url = SERVICE_URL + url;

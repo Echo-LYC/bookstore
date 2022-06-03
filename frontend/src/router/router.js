@@ -8,6 +8,8 @@ import OrderView from '../view/orderView'
 import BookEditorView from '../view/bookEditorView';
 import RegisterView from '../view/registerView';
 import CartsView from '../view/cartsView';
+import UserManageView from "../view/userManageView";
+import StatisticsView from "../view/statisticsView";
 
 export const history = require('history').createBrowserHistory()
 
@@ -31,6 +33,8 @@ export default class BasicRouter extends React.Component {
         <Route exact path="/editor/:id" component={BookEditorView}/>
         <Route exact path="/orders" component={OrderView}/>
         <Route exact path="/cart" component={CartsView}/>
+        <Route exact path="/users" component={UserManageView}/>
+        <Route exact path="/statistics" component={StatisticsView}/>
         <Redirect from="/*" to="/login"/>
       </Switch>
     </Router>

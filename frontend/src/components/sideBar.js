@@ -24,13 +24,13 @@ export default class SideBar extends React.PureComponent {
         <Nav.Link href="/users"><i className="fa fa-users"/> Users</Nav.Link>
       </Nav.Item>}
       {!isAdmin && <Nav.Item>
-        <Nav.Link href="/orders"><i className="fa fa-bar-chart"/> My Orders</Nav.Link>
+        <Nav.Link href="/orders"><i className="fa fa-table"/> My Orders</Nav.Link>
       </Nav.Item>}
       {isAdmin && <Nav.Item>
-        <Nav.Link href="/orders"><i className="fa fa-bar-chart"/> Orders</Nav.Link>
+        <Nav.Link href="/orders"><i className="fa fa-table"/> Orders</Nav.Link>
       </Nav.Item>}
       <Nav.Item>
-        <Nav.Link href="/login"><i className="fa fa-user-circle-o"/> My Profile</Nav.Link>
+        <Nav.Link href="/statistics"><i className="fa fa-bar-chart"/> Statistics</Nav.Link>
       </Nav.Item>
     </Nav>
   }

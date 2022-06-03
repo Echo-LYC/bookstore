@@ -8,11 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
+    }
 
     @Override
     public User login(String username, String password) {
@@ -34,5 +40,15 @@ public class UserServiceImpl implements UserService {
         user.setAuth("CUSTOMER");
         user.setValid(true);
         userDao.save(user);
+    }
+
+    @Override
+    public void prohibit(List<Integer> ids, Boolean valid) {
+        for (Integer id : ids) {
+            User user = userDao.getById(id);
+            if (user == null || user.getAuth().equals("ADMINISTRATOR")) continue;
+            user.setValid(valid);
+            userDao.save(user);
+        }
     }
 }
